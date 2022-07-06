@@ -1,5 +1,5 @@
 {
-  "name": "my-wallet-api",
+  "name": "ambitious-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -24,7 +24,7 @@
   "contributors": [],
   "scripts": {
     "start": "node ./src/index.js",
-		"dev": "npx nodemon ./src/index.js"
+    "dev": "npx nodemon ./src/index.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
