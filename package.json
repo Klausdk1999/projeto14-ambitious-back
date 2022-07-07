@@ -21,10 +21,15 @@
     "name": "Klaus",
     "email": "klausdk1999@gmail.com"
   },
-  "contributors": [],
+  "contributors": [
+    {
+      "name": "Hugo Aseka",
+      "email": "hugomaseka@gmail.com"
+    }
+  ],
   "scripts": {
     "start": "node ./src/index.js",
-		"dev": "npx nodemon ./src/index.js"
+    "dev": "npx nodemon ./src/index.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

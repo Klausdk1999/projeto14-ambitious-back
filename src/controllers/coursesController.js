@@ -1,14 +1,14 @@
 import { db, objectId } from '../dbStrategy/mongo.js';
 import joi from 'joi';
 
-export async function getTransactions(req, res) {
-  const session = res.locals.session;
+export async function getAllCourses(req, res) {
 
-  const posts = await db
-    .collection('transactions')
-    .find({ userId: new objectId(session.userId) })
+  const courses = await db
+    .collection('cursos')
+    .find()
     .toArray();
-  res.send(posts);
+  res.send(courses);
+  
 }
 
 export async function createTransaction(req, res) {
@@ -38,4 +38,3 @@ export async function createTransaction(req, res) {
   await db.collection('transactions').insertOne({ ...post, userId: session.userId });
   res.status(201).send('Transação criada com sucesso');
 }
-
