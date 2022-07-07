@@ -38,3 +38,6 @@ export async function createTransaction(req, res) {
   await db.collection('transactions').insertOne({ ...post, userId: session.userId });
   res.status(201).send('Transação criada com sucesso');
 }
+
+
+//testeprodutos
