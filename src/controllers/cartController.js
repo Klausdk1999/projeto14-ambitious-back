@@ -24,7 +24,7 @@ export async function insertCart(req, res) {
 
   try {
 
-		const user = await db.collection("usuarios").findOne({ _id: new ObjectId(session._id) })
+		const user = await db.collection("usuarios").findOne({ _id: new objectId(session._id) })
 		if (!user) {
 			res.sendStatus(404)
 			return;
