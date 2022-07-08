@@ -18,7 +18,9 @@ export async function createUser(req, res) {
   const usuario = {
     name: body.name,
     email: body.email,
-    password:body.password
+    password:body.password,
+    cart:body.cart,
+    owned:body.owned
   }
   
   const { error } = usuarioSchema.validate(usuario);
@@ -58,10 +60,12 @@ export async function loginUser(req, res) {
 
     await db.collection('sessoes').insertOne({
       token,
-      userId: userdb._id
+      userId: userdb._id,
     });
-    const name=userdb.name;
-    return res.status(201).send({ token, name});
+
+    const {name,cart,owned}=userdb;
+    
+    return res.status(201).send({ token, name,cart,owned});
   } else {
     return res.status(401).send('Senha ou email incorretos!');
   }
