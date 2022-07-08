@@ -29,9 +29,11 @@ export async function insertCart(req, res) {
 			res.sendStatus(404)
 			return;
 		}
+    const carrinho=user.cart;
+    carrinho.push(id);
 		await db.collection("usuarios").updateOne({ 
 			_id: user._id 
-		}, { $push: { "cart": id } });
+		}, { $set: { "cart": carrinho } });
 				
 		res.send("Inserido item no carrinho").status(200);
 		
