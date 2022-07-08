@@ -15,9 +15,13 @@ export async function insertCart(req, res) {
   const id = req.body;
   const { authorization } = req.headers;
   const token = authorization?.replace('Bearer ', '');
-  console.log("insert cart")
+
+  console.log("insert cart");
+
+  console.log(token);
+
   const session = await db.collection('sessoes').findOne({ token });
- 
+  console.log(session);
   if (!session) {
     return res.sendStatus(401);
   }
