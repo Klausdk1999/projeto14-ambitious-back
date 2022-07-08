@@ -15,7 +15,7 @@ export async function insertCart(req, res) {
   const id = req.body;
   const { authorization } = req.headers;
   const token = authorization?.replace('Bearer ', '');
-
+  console.log("insert cart")
   const session = await db.collection('sessoes').findOne({ token });
  
   if (!session) {
@@ -24,13 +24,17 @@ export async function insertCart(req, res) {
 
   try {
 
-		const user = await db.collection("usuarios").findOne({ _id: new ObjectId(session._id) })
+		const user = await db.collection("usuarios").findOne({ _id: new ObjectId(session.userId) })
 		if (!user) {
 			res.sendStatus(404)
 			return;
 		}
+    
     const carrinho=user.cart;
+    console.log("cria carrinho"+carrinho);
     carrinho.push(id);
+    console.log("push"+carrinho);
+    console.log("id"+user.id)
 		await db.collection("usuarios").updateOne({ 
 			_id: user._id 
 		}, { $set: { "cart": carrinho } });
