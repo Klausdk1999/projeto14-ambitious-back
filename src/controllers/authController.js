@@ -13,6 +13,8 @@ export async function createUser(req, res) {
     name: joi.string().required(),
     email: joi.string().email().required(),
     password: joi.string().required(),
+    cart:[],
+    owned:[]
   });
   
   const usuario = {
