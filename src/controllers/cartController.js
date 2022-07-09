@@ -2,22 +2,29 @@ import { db, objectId } from '../dbStrategy/mongo.js';
 import joi from 'joi';
 
 export async function getCart(req, res) {
- const session = res.locals.session;
-
-  const posts = await db
-    .collection('transactions')
-    .find({ userId: new objectId(session.userId) })
-    .toArray();
-  res.send(posts);
-}
-
-export async function insertCart(req, res) {
-  const id = req.body;
   const { authorization } = req.headers;
   const token = authorization?.replace('Bearer ', '');
 
   const session = await db.collection('sessoes').findOne({ token });
-  console.log(session);
+ 
+  if (!session) {
+    return res.sendStatus(401);
+  }
+
+  const user = await db.collection("usuarios").findOne({ _id: session.userId });
+
+  const items = user.cart;
+
+  res.send(items).status(200);
+}
+
+export async function insertCart(req, res) {
+  const item = req.body;
+  const { authorization } = req.headers;
+  const token = authorization?.replace('Bearer ', '');
+
+  const session = await db.collection('sessoes').findOne({ token });
+ 
   if (!session) {
     return res.sendStatus(401);
   }
@@ -31,7 +38,7 @@ export async function insertCart(req, res) {
 		}
     
     const carrinho=user.cart;
-    carrinho.push(id);
+    carrinho.push(item);
     
 		await db.collection("usuarios").updateOne({ 
 			_id: user._id 
