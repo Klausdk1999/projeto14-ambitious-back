@@ -1,6 +1,5 @@
 import { db, objectId } from '../dbStrategy/mongo.js';
 import joi from 'joi';
-import { ObjectId } from 'bson';
 
 //export async function getCart(req, res) {
  // const session = res.locals.session;
@@ -29,7 +28,8 @@ export async function insertCart(req, res) {
 
   try {
 
-		const user = await db.collection("usuarios").findOne({ _id: new ObjectId(session._id) })
+		const user = await db.collection("usuarios").findOne({ _id: new objectId(session._id) })
+    console.log(user);
 		if (!user) {
 			res.sendStatus(404)
 			return;
