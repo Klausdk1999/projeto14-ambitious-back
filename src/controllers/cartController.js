@@ -89,7 +89,16 @@ export async function checkout(req, res) {
       { $set: { owned: owned } }
     );
 
-    res.send("Compra Finalizada").status(200);
+    const attuser = await db
+      .collection("usuarios")
+      .findOne({ _id: session.userId });
+
+    if (!attuser) {
+      res.sendStatus(404);
+      return;
+    }
+
+    res.send(attuser).status(200);
   } catch (error) {
     res.status(500).send(error);
   }
